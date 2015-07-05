@@ -9,9 +9,15 @@
 import UIKit
 
 class MasterViewController: UITableViewController {
-
     var objects = [AnyObject]()
 
+    func loadWordLists() {
+        
+    }
+    
+    func configureRestKit() {
+        
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -19,6 +25,10 @@ class MasterViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        self.configureRestKit()
+        self.loadWordLists()
+        
         // Do any additional setup after loading the view, typically from a nib.
         self.navigationItem.leftBarButtonItem = self.editButtonItem()
 
