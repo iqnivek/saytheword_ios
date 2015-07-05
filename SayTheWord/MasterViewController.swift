@@ -12,11 +12,22 @@ class MasterViewController: UITableViewController {
     var objects = [AnyObject]()
 
     func loadWordLists() {
-        
+        RKObjectManager.sharedManager().getObjectsAtPath("/v1/word_lists/1.json", parameters: nil,
+            success: { (operation, result) -> Void in
+                println("\(result.array())")
+            },
+            failure: { (operation, error) -> Void in
+                println("loadWordLists failed: \(error)")
+            }
+        )
     }
     
     func configureRestKit() {
-        
+        let objectManager = RKObjectManager(baseURL: NSURL(string: "http://localhost:3000"))
+        let wordListMapping = RKObjectMapping(forClass: WordList.self)
+        let responseDescriptor = RKResponseDescriptor(mapping: wordListMapping, method: RKRequestMethod.GET, pathPattern: "/v1/word_lists/:id.json", keyPath: "word_list", statusCodes: NSIndexSet(index: 200))
+
+        objectManager.addResponseDescriptor(responseDescriptor)
     }
 
     override func awakeFromNib() {
