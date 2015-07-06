@@ -25,6 +25,7 @@ class MasterViewController: UITableViewController {
     func configureRestKit() {
         let objectManager = RKObjectManager(baseURL: NSURL(string: "http://localhost:3000"))
         let wordListMapping = RKObjectMapping(forClass: WordList.self)
+        wordListMapping.addAttributeMappingsFromArray(["name"])
         let responseDescriptor = RKResponseDescriptor(mapping: wordListMapping, method: RKRequestMethod.GET, pathPattern: "/v1/word_lists/:id.json", keyPath: "word_list", statusCodes: NSIndexSet(index: 200))
 
         objectManager.addResponseDescriptor(responseDescriptor)
