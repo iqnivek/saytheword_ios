@@ -9,6 +9,7 @@
 import UIKit
 
 class WordList: NSObject {
-    var id:   Int?
-    var name: String?
+    var id:    NSNumber?
+    var name:  NSString?
+    var words: NSArray?
 }
