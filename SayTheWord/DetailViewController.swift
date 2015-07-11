@@ -12,8 +12,7 @@ class DetailViewController: UIViewController {
 
     @IBOutlet weak var detailDescriptionLabel: UILabel!
 
-
-    var detailItem: AnyObject? {
+    var wordList: WordList? {
         didSet {
             // Update the view.
             self.configureView()
@@ -21,11 +20,8 @@ class DetailViewController: UIViewController {
     }
 
     func configureView() {
-        // Update the user interface for the detail item.
-        if let detail: AnyObject = self.detailItem {
-            if let label = self.detailDescriptionLabel {
-                label.text = detail.description
-            }
+        if let wl = self.wordList, label = detailDescriptionLabel {
+            label.text = wl.name as? String
         }
     }
 
@@ -39,7 +35,5 @@ class DetailViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
 }
 
