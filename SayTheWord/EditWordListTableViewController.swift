@@ -18,7 +18,23 @@ class EditWordListTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationItem.rightBarButtonItem = self.editButtonItem()
+        let addButton = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Add, target: self, action: "addWord")
+        self.navigationItem.rightBarButtonItems = [addButton, self.editButtonItem()]
+    }
+
+    func addWord() {
+        var alert = UIAlertController(title: "Add a new word", message: nil, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Add", style: .Default, handler: { (action: UIAlertAction!) -> Void in
+            let text = (alert.textFields?[0] as! UITextField).text
+            let newList = self.wordList!.words!.mutableCopy() as! NSMutableArray
+            newList.addObject(text)
+            self.wordList!.words = newList
+            self.tableView.reloadData()
+        }))
+        alert.addTextFieldWithConfigurationHandler() { (textField: UITextField!) in
+            textField.placeholder = "e.g. pumpkin"
+        }
+        self.presentViewController(alert, animated: true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {
