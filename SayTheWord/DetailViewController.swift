@@ -10,18 +10,31 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
-    @IBOutlet weak var detailDescriptionLabel: UILabel!
+    @IBOutlet weak var wordCountLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
+
+    @IBAction func editWordList(sender: AnyObject) {
+
+    }
+
+    @IBAction func startGame(sender: AnyObject) {
+
+    }
 
     var wordList: WordList? {
         didSet {
-            // Update the view.
             self.configureView()
         }
     }
 
     func configureView() {
-        if let wl = self.wordList, label = detailDescriptionLabel {
-            label.text = wl.name as? String
+        if let wl = self.wordList {
+            if let label = wordCountLabel {
+                label.text = "\(wl.words?.count ?? 0) words"
+            }
+            if let label = nameLabel {
+                label.text = wl.name as? String
+            }
         }
     }
 
