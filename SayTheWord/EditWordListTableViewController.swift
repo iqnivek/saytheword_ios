@@ -24,6 +24,7 @@ class EditWordListTableViewController: UITableViewController {
 
     func addWord() {
         var alert = UIAlertController(title: "Add a new word", message: nil, preferredStyle: .Alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: .Cancel, handler: nil))
         alert.addAction(UIAlertAction(title: "Add", style: .Default, handler: { (action: UIAlertAction!) -> Void in
             let text = (alert.textFields?[0] as! UITextField).text
             let newList = self.wordList!.words!.mutableCopy() as! NSMutableArray
