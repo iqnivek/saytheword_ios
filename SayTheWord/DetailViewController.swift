@@ -38,6 +38,13 @@ class DetailViewController: UIViewController {
         }
     }
 
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "editWordListSegue" {
+            let vc = segue.destinationViewController as! EditWordListTableViewController
+            vc.wordList = wordList
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.

@@ -84,7 +84,7 @@ class MasterViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as! UITableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("WordListCell", forIndexPath: indexPath) as! UITableViewCell
 
         let wordList = wordLists[indexPath.row]
         cell.textLabel!.text = wordList.name as? String
