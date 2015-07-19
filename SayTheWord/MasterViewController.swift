@@ -12,6 +12,7 @@ class MasterViewController: UITableViewController {
     var wordLists = [WordList]()
 
     func loadWordLists() {
+        // TODO add word_lists#index action
         RKObjectManager.sharedManager().getObjectsAtPath("/v1/word_lists/1.json", parameters: nil,
             success: { (operation, result) -> Void in
                 self.wordLists = result.array() as! [WordList]
@@ -25,11 +26,23 @@ class MasterViewController: UITableViewController {
     
     func configureRestKit() {
         let objectManager = RKObjectManager(baseURL: NSURL(string: "http://localhost:3000"))
-        let wordListMapping = RKObjectMapping(forClass: WordList.self)
-        wordListMapping.addAttributeMappingsFromArray(["id", "name", "words"])
-        let responseDescriptor = RKResponseDescriptor(mapping: wordListMapping, method: RKRequestMethod.GET, pathPattern: "/v1/word_lists/:id.json", keyPath: "word_list", statusCodes: NSIndexSet(index: 200))
 
-        objectManager.addResponseDescriptor(responseDescriptor)
+        let responseMapping = RKObjectMapping(forClass: WordList.self)
+        responseMapping.addAttributeMappingsFromArray(["id", "name", "words"])
+
+        let requestMapping = RKObjectMapping.requestMapping()
+        requestMapping.addAttributeMappingsFromArray(["id", "name", "words"])
+
+        // GET
+        let getResponseDescriptor = RKResponseDescriptor(mapping: responseMapping, method: RKRequestMethod.GET, pathPattern: "/v1/word_lists/:id.json", keyPath: "word_list", statusCodes: NSIndexSet(index: 200))
+
+        // UPDATE
+        let updateResponseDescriptor = RKResponseDescriptor(mapping: responseMapping, method: RKRequestMethod.PUT, pathPattern: "/v1/word_lists/:id.json", keyPath: "word_list", statusCodes: RKStatusCodeIndexSetForClass(RKStatusCodeClass.Successful))
+        let updateRequestDescriptor = RKRequestDescriptor(mapping: requestMapping, objectClass: WordList.self, rootKeyPath: "word_list", method: RKRequestMethod.Any)
+
+        objectManager.addRequestDescriptor(updateRequestDescriptor)
+        objectManager.addResponseDescriptor(getResponseDescriptor)
+        objectManager.addResponseDescriptor(updateResponseDescriptor)
     }
 
     override func awakeFromNib() {

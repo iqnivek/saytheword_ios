@@ -31,6 +31,8 @@ class EditWordListTableViewController: UITableViewController {
             newList.addObject(text)
             self.wordList!.words = newList
             self.tableView.reloadData()
+
+            RKObjectManager.sharedManager().patchObject(self.wordList, path: "/v1/word_lists/\(self.wordList!.id!).json", parameters: nil, success: nil, failure: nil)
         }))
         alert.addTextFieldWithConfigurationHandler() { (textField: UITextField!) in
             textField.placeholder = "e.g. pumpkin"
